@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/kotjiac/mlp-tcc.git'
-    path: infra/gitops
+    path: infra/gitops/argocd-apps
     targetRevision: master
   syncPolicy:
     automated:
