@@ -1,0 +1,108 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: k3s-tcc  # Nome do cluster (será prefixado com 'k3d-')
+
+# Quantidade de nós
+servers: 1         # Nós de controle (control plane). Alterações aqui impactam nos 'volumes'
+agents: 2          # Nós de trabalho (data plane)
+
+image: rancher/k3s:v1.33.1-k3s1  # Versão do K3s (Kubernetes leve)
+
+# Expor apenas portas públicas para Gateway API
+ports:
+  - port: 80:80        # Expor HTTP do host para dentro do cluster
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443      # Expor HTTPS do host para dentro do cluster
+    nodeFilters:
+      - loadbalancer
+
+# Volumes persistentes para cada servidor (isolados)
+volumes:
+  - volume: k3s-tcc-data-0:/data
+    nodeFilters:
+      - server:0
+#  - volume: k3s-tcc-data-1:/data
+#    nodeFilters:
+#      - server:1
+#  - volume: k3s-tcc-data-2:/data
+#    nodeFilters:
+#      - server:2
+
+# Volume persistente para o registry proxy (Docker Hub)
+  - volume: k3s-tcc-registry-cache:/var/lib/registry
+    nodeFilters:
+      - loadbalancer
+
+# Configurações avançadas
+options:
+  k3s:
+    extraArgs:
+      - arg: "--disable=traefik"  # Desativa o Traefik embutido (você usará Gateway API)
+        nodeFilters:
+          - server:*
+      #- arg: "--tls-san=meudominio.com"  # TLS SAN opcional para acesso externo via domínio/IP
+      #  nodeFilters:
+      #    - server:*
+
+    # Defina labels nos nodes para seleção por serviços
+    nodeLabels:
+      - label: role=infra
+        nodeFilters:
+          - server:*
+      - label: role=app
+        nodeFilters:
+          - agent:*
+
+  k3d:
+    wait: true           # Aguarda o cluster ficar pronto
+    timeout: "60s"        # Timeout de espera
+    disableLoadbalancer: false  # Deixe como 'false' para expor via LB
+    disableImageVolume: false   # Pode montar imagens via volume
+    disableRollback: false
+    #loadbalancer:
+    #  configOverrides:
+    #    - settings.workerConnections=2048  # Ajuste de conexões simultâneas (NGINX-like)
+
+  kubeconfig:
+    updateDefaultKubeconfig: true  # Atualiza o ~/.kube/config automaticamente
+    switchCurrentContext: true     # Alterna para o novo contexto do cluster
+
+  runtime:
+    #gpuRequest: all               # Descomente se for usar modelos com GPU
+    labels:
+      - label: nodeType=worker
+        nodeFilters:
+          - agent:*
+    ulimits:
+      - name: nofile
+        soft: 26677
+        hard: 26677
+
+# Registro de container opcional com proxy Docker Hub + volume persistente
+registries:
+  create:
+    name: registry.localhost
+    host: "0.0.0.0"
+    hostPort: "5000"
+    proxy:
+      remoteURL: https://registry-1.docker.io
+    volumes:
+      - k3d-registry-cache:/var/lib/registry
+#  use:
+#    - k3d-myotherregistry:5000
+#  config: |
+#    mirrors:
+#      "docker.io":
+#        endpoint:
+#          - https://registry-1.docker.io
+
+# DNS interno e aliases úteis para testes e CI/CD
+#hostAliases:
+#  - ip: 1.2.3.4
+#    hostnames:
+#      - my.host.local
+#  - ip: 1.1.1.1
+#    hostnames:
+#      - cloud.flare.dns

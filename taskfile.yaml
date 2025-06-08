@@ -1,0 +1,43 @@
+version: '3'
+
+tasks:
+  k3s-up:
+    desc: Cria o cluster k3s-tcc usando k3d
+    cmds:
+      - k3d cluster create --config infra/k3d-cluster-create.yaml
+
+  k3-down:
+    desc: Deleta o cluster k3s-tcc
+    cmds:
+      - k3d cluster delete k3s-tcc
+
+  k3s-list:
+    desc: Lista o cluster criado
+    cmds:
+      - k3d cluster list
+
+  k3s-status:
+    desc: Mostra os nós do cluster criado
+    cmds:
+      - kubectl get nodes -o wide
+
+  argocd-install:
+    desc: Instala o ArgoCD no k3s
+    cmds:
+      - kubectl create namespace argocd
+      - kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+  argocd-access:
+    desc: Port-Forward para acessar a interface gráfica do ArgoCD
+    cmds:
+      - |
+        PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret \
+          -o jsonpath="{.data.password}" | base64 -d)
+        echo ""
+        echo "🎯 Acesse o ArgoCD em: https://localhost:8080"
+        echo "👤 Usuário: admin"
+        echo "🔐 Senha:  $PASSWORD"
+        echo ""
+        echo "⏳ Pressione Ctrl+C para encerrar o port-forward..."
+        echo ""
+        kubectl -n argocd port-forward svc/argocd-server 8080:443
