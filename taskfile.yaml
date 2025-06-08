@@ -41,3 +41,8 @@ tasks:
         echo "⏳ Pressione Ctrl+C para encerrar o port-forward..."
         echo ""
         kubectl -n argocd port-forward svc/argocd-server 8080:443
+
+  argocd-apps-create:
+    desc: Cria ArgoCD Apps
+    cmds:
+      - kubectl apply -n argocd -f infra/argocd-apps.yaml

@@ -69,8 +69,8 @@ Instalar  o ArgoCD
 .\bin\windows\task.exe argocd-install
 ```
 
-Acessar insterface gráfica do ArgoCD
+Acessar interface gráfica do ArgoCD
 
 ```powershell
-./bin/linux/task argocd-access
+.\bin\windows\task.exe argocd-access
 ```

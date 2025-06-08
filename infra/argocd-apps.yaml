@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-apps
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: 'https://github.com/kotjiac/mlp-tcc.git'
+    path: infra/gitops
+    targetRevision: master
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
