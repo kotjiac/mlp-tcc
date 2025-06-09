@@ -7,7 +7,7 @@ global:
   # -- Overrides the storage class for all PVC with persistence enabled.
   # If not set, the default storage class is used.
   # If set to "-", storageClassName: "", which disables dynamic provisioning
-  storageClass: null
+  storageClass: local-path
   # -- Kubernetes cluster domain
   # It is used only when components are installed in different namespace
   clusterDomain: cluster.local
@@ -220,7 +220,7 @@ clickhouse:
     # If undefined (the default) or set to `null`, no storageClassName spec is
     # set, choosing the default provisioner.
     #
-    storageClass: null
+    storageClass: local-path
     # -- Access Modes for persistent volume
     accessModes:
       - ReadWriteOnce
@@ -788,7 +788,7 @@ signoz:
     # If undefined (the default) or set to `null`, no storageClassName spec is
     # set, choosing the default provisioner.
     #
-    storageClass: null
+    storageClass: local-path
     # -- Access Modes for persistent volume
     accessModes:
       - ReadWriteOnce

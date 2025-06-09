@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-    path: gitops/argocd-apps/signoz
+    path: infra/gitops/argocd-apps/signoz
     repoURL: 'https://github.com/kotjiac/mlp-tcc.git'
     targetRevision: master
   syncPolicy:
