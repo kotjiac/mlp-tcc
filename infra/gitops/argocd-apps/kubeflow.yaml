@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
+    namespace: kubeflow-system
     server: https://kubernetes.default.svc
   project: default
   source:
