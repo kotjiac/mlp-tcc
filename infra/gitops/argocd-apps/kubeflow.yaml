@@ -8,7 +8,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: infra/gitops/argocd-apps/kubeflow/manifests
+    path: infra/gitops/argocd-apps/kubeflow/manifests/example
     repoURL: 'https://github.com/kotjiac/mlp-tcc.git'
     targetRevision: master
   syncPolicy:
