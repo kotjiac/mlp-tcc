@@ -16,7 +16,7 @@ spec:
         component: model-registry-server
     spec:
       nodeSelector:
-        kubernetes.io/arch: "amd64"
+        kubernetes.io/arch: amd64
       securityContext:
         seccompProfile:
           type: RuntimeDefault

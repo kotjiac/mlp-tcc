@@ -16,7 +16,7 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     spec:
       nodeSelector:
-        kubernetes.io/arch: "amd64"
+        kubernetes.io/arch: amd64
       securityContext:
         seccompProfile:
           type: RuntimeDefault

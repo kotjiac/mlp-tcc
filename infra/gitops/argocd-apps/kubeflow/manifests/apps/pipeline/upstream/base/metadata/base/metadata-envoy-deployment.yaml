@@ -16,7 +16,7 @@ spec:
         sidecar.istio.io/inject: "false"
     spec:
       nodeSelector:
-        kubernetes.io/arch: "amd64"
+        kubernetes.io/arch: amd64
       containers:
       - name: container
         image: ghcr.io/kubeflow/kfp-metadata-envoy:dummy
