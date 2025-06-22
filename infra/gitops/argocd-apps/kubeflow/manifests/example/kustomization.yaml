@@ -114,5 +114,3 @@ patches:
   target:
     kind: Deployment
     name: ml-pipeline-visualizationserver
-    # Adicionar o namespace torna o target mais específico e é uma boa prática
-    namespace: kubeflow
