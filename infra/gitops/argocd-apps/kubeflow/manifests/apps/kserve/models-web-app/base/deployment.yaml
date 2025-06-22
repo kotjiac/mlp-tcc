@@ -13,8 +13,6 @@ spec:
       labels:
         app.kubernetes.io/component: kserve-models-web-app
     spec:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       securityContext:
         runAsNonRoot: true
         seccompProfile:

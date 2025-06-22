@@ -15,8 +15,6 @@ spec:
         sidecar.istio.io/inject: "true"
         component: model-registry-server
     spec:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       securityContext:
         seccompProfile:
           type: RuntimeDefault

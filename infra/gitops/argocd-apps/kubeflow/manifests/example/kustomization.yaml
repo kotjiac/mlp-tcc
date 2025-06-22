@@ -108,9 +108,3 @@ components:
 # - ../experimental/security/PSS/dynamic/baseline
 # Uncomment to enable restricted level standards for dynamic namespaces
 # - ../experimental/security/PSS/dynamic/restricted
-
-patches:
-- path: patches/viz-server-nodeselector.yaml
-  target:
-    kind: Deployment
-    name: ml-pipeline-visualizationserver
