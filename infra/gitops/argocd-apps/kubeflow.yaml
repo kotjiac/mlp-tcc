@@ -18,9 +18,9 @@ spec:
     
   # --- SEÇÃO DE POLÍTICA DE SINCRONIZAÇÃO AJUSTADA ---
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    #automated:
+    #  prune: true
+    #  selfHeal: true
     # A política de retry foi adicionada para espelhar seu 'while loop',
     # tornando a instalação mais resiliente a falhas temporárias.
     retry:
