@@ -108,3 +108,11 @@ components:
 # - ../experimental/security/PSS/dynamic/baseline
 # Uncomment to enable restricted level standards for dynamic namespaces
 # - ../experimental/security/PSS/dynamic/restricted
+
+patches:
+- path: patches/viz-server-nodeselector.yaml
+  target:
+    kind: Deployment
+    name: ml-pipeline-visualizationserver
+    # Adicionar o namespace torna o target mais específico e é uma boa prática
+    namespace: kubeflow
