@@ -4,36 +4,36 @@ metadata:
   name: kubeflow
   namespace: argocd
 spec:
-  # Seção de destino permanece a mesma
+  # O destino da sua instalação Kubeflow
   destination:
     namespace: kubeflow
     server: https://kubernetes.default.svc
   project: default
   
-  # Seção de origem permanece a mesma
+  # A fonte no seu Git, que usa o overlay 'example' do Kustomize.
+  # Isso está correto e vai aplicar seus patches (como o do nodeSelector).
   source:
     path: infra/gitops/argocd-apps/kubeflow/manifests/example
     repoURL: 'https://github.com/kotjiac/mlp-tcc.git'
     targetRevision: master
     
-  # --- SEÇÃO DE POLÍTICA DE SINCRONIZAÇÃO AJUSTADA ---
+  # --- POLÍTICA DE SINCRONIZAÇÃO COMPLETA ---
+  # Inclui automação e a política de retry que adicionamos
+  # para tornar a instalação mais robusta.
   syncPolicy:
-    #automated:
-    #  prune: true
-    #  selfHeal: true
-    # A política de retry foi adicionada para espelhar seu 'while loop',
-    # tornando a instalação mais resiliente a falhas temporárias.
+    automated:
+      prune: true
+      selfHeal: true
     retry:
-      limit: 5 # Tenta sincronizar até 5 vezes em caso de falha.
+      limit: 5 
       backoff:
-        duration: 20s # Começa com uma espera de 20 segundos.
-        factor: 2 # Dobra o tempo de espera a cada nova tentativa (20s, 40s, 80s...).
-        maxDuration: 5m # A espera máxima entre as tentativas não passará de 5 minutos.
+        duration: 20s
+        factor: 2
+        maxDuration: 5m
 
-  # --- SEÇÃO DE OPÇÕES DE SINCRONIZAÇÃO CORRIGIDA ---
-  # Removemos a opção conflitante e mantivemos a 'Replace=true',
-  # que é a estratégia mais agressiva e provável de replicar o sucesso
-  # do seu comando --force-conflicts, pois evita os conflitos de campo.
+  # --- OPÇÕES DE SINCRONIZAÇÃO CORRIGIDAS E FINAL ---
+  # Esta é a parte crucial que faltava novamente.
+  # Replace=true é a estratégia agressiva que evita o erro "metadata.annotations: Too long".
   syncOptions:
     - CreateNamespace=true
     - Replace=true
