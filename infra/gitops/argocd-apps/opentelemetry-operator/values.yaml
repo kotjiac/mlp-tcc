@@ -343,7 +343,13 @@ clusterRole:
   create: true
 
 affinity: {}
-tolerations: []
+#tolerations: []
+tolerations:
+  - key: "arch"
+    operator: "Equal"
+    value: "arm"
+    effect: "NoSchedule"
+
 nodeSelector:
   kubernetes.io/os: linux
 topologySpreadConstraints: []

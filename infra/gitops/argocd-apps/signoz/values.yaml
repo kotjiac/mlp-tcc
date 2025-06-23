@@ -168,7 +168,12 @@ clickhouse:
   # -- Node selector for settings for clickhouse pod
   nodeSelector: {}
   # -- Toleration labels for clickhouse pod assignment
-  tolerations: []
+  #tolerations: []
+  tolerations:
+  - key: "arch"
+    operator: "Equal"
+    value: "arm"
+    effect: "NoSchedule"
   # -- Affinity settings for clickhouse pod
   affinity: {}
   # -- Configure resource requests and limits. Update according to your own use
@@ -772,7 +777,12 @@ signoz:
   # -- Node selector for settings for signoz pod
   nodeSelector: {}
   # -- Toleration labels for signoz pod assignment
-  tolerations: []
+  #tolerations: []
+  tolerations:
+  - key: "arch"
+    operator: "Equal"
+    value: "arm"
+    effect: "NoSchedule"
   # -- Affinity settings for signoz pod
   affinity: {}
   # -- TopologySpreadConstraints describes how g pods ought to spread
@@ -817,7 +827,12 @@ schemaMigrator:
   # -- Node selector for settings for schemaMigrator
   nodeSelector: {}
   # -- Toleration labels for schemaMigrator assignment
-  tolerations: []
+  #tolerations: []
+  tolerations:
+  - key: "arch"
+    operator: "Equal"
+    value: "arm"
+    effect: "NoSchedule"
   # -- Affinity settings for schemaMigrator
   affinity: {}
   # -- TopologySpreadConstraints describes how schemaMigrator pods ought to spread
@@ -1249,7 +1264,12 @@ otelCollector:
   # -- Node selector for settings for OtelCollector pod
   nodeSelector: {}
   # -- Toleration labels for OtelCollector pod assignment
-  tolerations: []
+  #tolerations: []
+  tolerations:
+  - key: "arch"
+    operator: "Equal"
+    value: "arm"
+    effect: "NoSchedule"
   # -- Affinity settings for OtelCollector pod
   affinity: {}
   # -- TopologySpreadConstraints describes how OtelCollector pods ought to spread

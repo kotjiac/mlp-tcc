@@ -58,6 +58,11 @@ preUpgradeHook:
     tag: "1.25.15"
     # -- The imagePullPolicy for the container
     pullPolicy: IfNotPresent
+  tolerations:
+    - key: "arch"
+      operator: "Equal"
+      value: "arm"
+      effect: "NoSchedule"
 
 engines:
   local:
