@@ -25,7 +25,8 @@ tasks:
     desc: Instala o ArgoCD no cluster k3s
     cmds:
       - kubectl create namespace argocd
-      - kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      #- kubectl apply -n argocd -f infra/gitops/argocdc-apps/argocd-ha-install.yaml
+      - kubectl apply -n argocd -f infra/gitops/argocd-apps/argocd-install.yaml
 
   argocd-apps-create:
     desc: Cria ArgoCD Apps e inicia instalação de aplicações no cluster
@@ -47,3 +48,7 @@ tasks:
         echo ""
         kubectl -n argocd port-forward svc/argocd-server 8080:443
 
+  kubeflow-install:
+    desc: Instala o kubeflow no cluster k3s
+    cmds:
+      - while ! kustomize build infra/gitops/argocdc-apps/kubeflow/example | kubectl apply --server-side --force-conflicts -f -; do echo "Retrying to apply resources"; sleep 20; done
