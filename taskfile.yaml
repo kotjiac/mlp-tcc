@@ -25,8 +25,8 @@ tasks:
     desc: Instala o ArgoCD no cluster k3s
     cmds:
       - kubectl create namespace argocd
-      #- kubectl apply -n argocd -f infra/gitops/argocdc-apps/argocd-ha-install.yaml
-      - kubectl apply -n argocd -f infra/gitops/argocd-apps/argocd-install.yaml
+      #- kubectl apply -n argocd -f infra/gitops/argocd-ha-install.yaml
+      - kubectl apply -n argocd -f infra/gitops/argocd-install.yaml
 
   argocd-apps-create:
     desc: Cria ArgoCD Apps e inicia instalação de aplicações no cluster
