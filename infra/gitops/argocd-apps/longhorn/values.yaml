@@ -1,6 +1,9 @@
 # Default values for longhorn.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+crds:
+  enabled: true
+
 global:
   # -- Toleration for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
   tolerations: []
