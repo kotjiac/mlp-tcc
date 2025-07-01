@@ -7,7 +7,7 @@ global:
   # -- Overrides the storage class for all PVC with persistence enabled.
   # If not set, the default storage class is used.
   # If set to "-", storageClassName: "", which disables dynamic provisioning
-  storageClass: openebs-hostpath
+  storageClass: longhorn-static
   # -- Kubernetes cluster domain
   # It is used only when components are installed in different namespace
   clusterDomain: cluster.local
@@ -168,12 +168,12 @@ clickhouse:
   # -- Node selector for settings for clickhouse pod
   nodeSelector: {}
   # -- Toleration labels for clickhouse pod assignment
-  #tolerations: []
-  tolerations:
-  - key: "arch"
-    operator: "Equal"
-    value: "arm"
-    effect: "NoSchedule"
+  tolerations: []
+  #tolerations:
+  #- key: "arch"
+  #  operator: "Equal"
+  #  value: "arm"
+  #  effect: "NoSchedule"
   # -- Affinity settings for clickhouse pod
   affinity: {}
   # -- Configure resource requests and limits. Update according to your own use
@@ -225,7 +225,7 @@ clickhouse:
     # If undefined (the default) or set to `null`, no storageClassName spec is
     # set, choosing the default provisioner.
     #
-    storageClass: openebs-hostpath
+    storageClass: longhorn-static
     # -- Access Modes for persistent volume
     accessModes:
       - ReadWriteOnce
@@ -777,12 +777,8 @@ signoz:
   # -- Node selector for settings for signoz pod
   nodeSelector: {}
   # -- Toleration labels for signoz pod assignment
-  #tolerations: []
-  tolerations:
-  - key: "arch"
-    operator: "Equal"
-    value: "arm"
-    effect: "NoSchedule"
+  tolerations: []
+
   # -- Affinity settings for signoz pod
   affinity: {}
   # -- TopologySpreadConstraints describes how g pods ought to spread
@@ -798,7 +794,7 @@ signoz:
     # If undefined (the default) or set to `null`, no storageClassName spec is
     # set, choosing the default provisioner.
     #
-    storageClass: openebs-hostpath
+    storageClass: longhorn-static
     # -- Access Modes for persistent volume
     accessModes:
       - ReadWriteOnce
@@ -827,12 +823,8 @@ schemaMigrator:
   # -- Node selector for settings for schemaMigrator
   nodeSelector: {}
   # -- Toleration labels for schemaMigrator assignment
-  #tolerations: []
-  tolerations:
-  - key: "arch"
-    operator: "Equal"
-    value: "arm"
-    effect: "NoSchedule"
+  tolerations: []
+
   # -- Affinity settings for schemaMigrator
   affinity: {}
   # -- TopologySpreadConstraints describes how schemaMigrator pods ought to spread
@@ -1264,12 +1256,8 @@ otelCollector:
   # -- Node selector for settings for OtelCollector pod
   nodeSelector: {}
   # -- Toleration labels for OtelCollector pod assignment
-  #tolerations: []
-  tolerations:
-  - key: "arch"
-    operator: "Equal"
-    value: "arm"
-    effect: "NoSchedule"
+  tolerations: []
+
   # -- Affinity settings for OtelCollector pod
   affinity: {}
   # -- TopologySpreadConstraints describes how OtelCollector pods ought to spread

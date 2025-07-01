@@ -945,12 +945,7 @@ otelDeployment:
   nodeSelector: {}
 
   # -- Toleration labels for OtelDeployment pod assignment
-  #tolerations: []
-  tolerations:
-    - key: "arch"
-      operator: "Equal"
-      value: "arm"
-      effect: "NoSchedule"
+  tolerations: []
 
   # -- Affinity settings for OtelDeployment pod
   affinity: {}

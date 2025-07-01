@@ -32,12 +32,8 @@ default:
   schedulingRules:
     nodeSelector: {}
     affinity: {}
-    #tolerations: []
-    tolerations:
-      - key: "arch"
-        operator: "Equal"
-        value: "arm"
-        effect: "NoSchedule"
+    tolerations: []
+
   # Default securityContext for all components
   securityContext: {}
 
